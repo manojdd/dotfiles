@@ -1,0 +1,87 @@
+source ~/.vimrc
+set ideajoin
+set NERDTree
+" Keep the mode when refactoring instead of going into select mode
+set idearefactormode=keep
+
+set showmode
+
+" Pro Tip: Run :actionlist to get a list of actions available for mapping
+" Code Actions & Refactoring
+:map <leader>p <Action>(ShowErrorDescription)
+:map <leader>P <Action>(CodeInspection.OnEditor)
+:map <leader>q <Action>(QuickActions)
+:map <leader>j <Action>(QuickJavaDoc)
+:map <leader>R <Action>(RefactoringMenu)
+":map <leader>R <Action>(Refactorings.QuickListPopupAction)
+:map <leader>s <Action>(SurroundWith)
+:map <leader>S <Action>(SelectAllOccurrences)  "Select and then may be replace
+:map <leader>m <Action>(Move)
+:map <leader>i <Action>(IntroduceActionsGroup)
+:map <leader>I <Action>(InspectCodeGroup)
+:map <leader>a <Action>(AnalyzeMenu)
+:map <leader>e <Action>(GotoNextError)
+:map <leader>E <Action>(GotoPreviousError)
+:map <leader>c <Action>(com.intellij.httpClient.actions.ConvertCurlToHttpRequestAction)
+
+" File Operations & Navigation
+:map <leader>n <Action>(NewElement)
+:map <leader>r <Action>(RenameElement)
+:map <tab> <Action>(Switcher)
+:map <leader>M <Action>(MainMenu)
+:map <leader>t <Action>(ActivateTerminalToolWindow)
+:map <leader>? <Action>(Help.KeymapReference)
+"Disabled because of https://youtrack.jetbrains.com/issue/VIM-2315
+":map <leader>sb <Action>(NewScratchBuffer)
+":map <leader>lo <Action>(SelectInProjectView) "Shows the file in project tree on the left
+
+" Git & History
+:map <leader>G <Action>(Git.Menu)
+:map <leader>g <Action>(Vcs.ShowTabbedFileHistory)
+":map <leader>g <Action>(Vcs.QuickListPopupAction)
+:map <leader>d <Action>(Compare.LastVersion)
+:map <leader>D <Action>(Vcs.Show.Local.Changes)
+":map <leader>pr <Action>(Github.View.Pull.Request)
+:map <leader>h <Action>(LocalHistory.ShowHistory)
+:map <leader>l <Action>(Vcs.Show.Log)
+":map <leader>x <Action(Vcs.ShowDiffWithLocal)
+":map <leader>x <Action>(NextDiff)
+":map <leader>x <Action>(JumpToNextChange)
+:map <leader>x <Action>(Diff.NextChange)
+
+"Build, Run & Debug
+:map <leader>b <Action>(BuildMenu)
+:map <leader>X <Action>(RunMenu) " Run/Debug/Breakpoint options
+
+" Appearance
+:map <leader>z <Action>(ToggleZenMode)
+
+" Performance
+"chart-demo
+
+" Following actions are worth looking into
+":map <leader>ghb <Action>(Vcs.ShowHistoryForBlock)
+":map <leader>fp <Action>(CopyAbsolutePath)
+":map <leader>oi <Action>(OptimizeImports)
+":map <leader>cp <Action>(ShowColorPicker)
+":map <leader>nav <Action>(ShowNavBar)
+":map <leader>ch <Action>(CallHierarchy)
+":map <leader>reg <Action>(ShowRegistry) "Like Windows Registry I guess
+
+"CommanderPopupMenu
+"CommitView.GearActions
+"FileMenu
+"GoToMenu
+"IdeaVim.ReloadVimRc.reload
+"SwitcherAndRecentFiles
+"Terminal.MoveToEditor
+"Terminal.SwitchFocusToEditor
+"SelectIn : Select in finder, web browser, etc
+"MoveTabRight : Move tab in a new split to right
+"MoveTabDown : Move tab in a new split to bottom
+"IdeScriptingConsole : Scripting for IDE?
+"HierarchyGroup : See hierarchy for type or calls
+"ProjectViewPopupMenu : Keep an eye on this config setting. It may work later in future for deleting files
+"com.jetbrains.plugins.remotesdk.console.RunSshConsoleAction : Connect via SSH and run console action?
+"CodeMenu : Shows general code refactoring options
+"CodeFormatGroup : Code Formatting actions
