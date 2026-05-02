@@ -1,0 +1,19 @@
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set selection-clipboard clipboard
+map j feedkeys "<C-Down>"
+map k feedkeys "<C-Up>"
+map [fullscreen] j feedkeys "<C-Down>"
+map [fullscreen] k feedkeys "<C-Up>"
+
+set adjust-open "width"
+set scroll-wrap false
+set font "monospace light 24"
+set statusbar-home-tilde true
+set window-title-home-tilde true
+set window-title-page true
+set guioptions "v"
+map [fullscreen] <PageDown> scroll full-down
+map [fullscreen] <PageUp> scroll full-up
+map [normal] <PageDown> scroll full-down
+map [normal] <PageUp> scroll full-up

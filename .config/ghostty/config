@@ -1,0 +1,34 @@
+theme = dark:Catppuccin Frappe,light:Catppuccin Latte
+gtk-titlebar = false
+window-decoration = none
+# fullscreen = true
+# background-opacity = 0.8
+# background-blur = true
+font-size = 15
+link-url = true
+gtk-single-instance = true
+
+# Keybinds
+# keybind = global:super+!=toggle_quick_terminal
+keybind = ctrl+shift+up=toggle_quick_terminal
+keybind = ctrl+enter=csi:1;5M
+keybind = alt+up=toggle_split_zoom
+keybind = ctrl+shift+right=new_split:right
+keybind = ctrl+shift+down=new_split:down
+keybind = ctrl+left=goto_split:left
+keybind = ctrl+right=goto_split:right
+keybind = ctrl+up=goto_split:up
+keybind = ctrl+down=goto_split:down
+keybind = super+f=toggle_fullscreen
+
+keybind = ctrl+a>shift+backslash=new_split:right
+keybind = ctrl+a>-=new_split:down
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>l=goto_split:right
+keybind = ctrl+a>k=goto_split:up
+keybind = ctrl+a>j=goto_split:down
+keybind = ctrl+a>z=toggle_split_zoom
+keybind = ctrl+a>right=new_split:right
+keybind = ctrl+a>down=new_split:down
+
+keybind = ctrl+a>p=toggle_command_palette
