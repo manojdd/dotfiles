@@ -1,0 +1,124 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top",
+    "position": "top",
+    "height": 36,
+    // "margin-top": 8,
+    // "margin-left": 12,
+    // "margin-right": 12,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "spacing": 8,
+    "modules-left": [
+        "dwl/tags",
+        "dwl/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "mpris",
+	"bluetooth",
+        "wireplumber",
+        "custom/internet",
+        // "network",
+        "cpu",
+        "memory",
+        "custom/gpu",
+        "custom/weather"
+        // "temperature",
+        // "backlight",
+        // "battery",
+        // "tray"
+        // "custom/power"
+    ],
+    "dwl/tags": {
+        "format": "{icon}"
+    },
+    "clock": {
+        "interval": 1,
+        "format": "{:%d %b %a %I:%M:%S %p}",
+        "format-alt": "{:%I:%M:%S %p}",
+        "tooltip-format": "<tt><big>{calendar}</big></tt>"
+    },
+    "cpu": {
+        "format": "{usage}% "
+    },
+    "memory": {
+        "format": "{used}/{total} GB "
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "{temperatureC}°C "
+    },
+    "backlight": {
+        "format": "{percent}%  "
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}%  {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": " ",
+        "format-ethernet": "",
+        "format-disconnected": "",
+        "tooltip-format": "{essid} {signalStrength}%"
+    },
+    "bluetooth": {
+    	"format": "",
+        "format-disabled": " disabled", // an empty format will hide the module
+        "format-off": "", // an empty format will hide the module
+    	"format-connected": " {device_battery_percentage}",
+    	"format-connected-battery": " ({device_battery_percentage}%)",
+    	"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+    },
+    "wireplumber": {
+        "format": "{volume}%  {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "mpris": {
+    	"format": "{status_icon}  {artist} : {title}",
+    	"format-paused": "{status_icon}",
+    	"player-icons": {
+    		"default": "",
+    		"mpv": ""
+    	},
+    	"status-icons": {
+    		"paused": ""
+    	},
+    },
+    "custom/power": {
+        "format": "  ",
+        "tooltip": false,
+        "on-click": "wlogout"
+    },
+    "custom/gpu": {
+        "format": " {}",
+        "interval": 5,
+	"exec": "nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits | awk -F ', ' '{printf \"%.1f/%.1f GB\\n\", $1/1024, $2/1024}'"
+    },
+    "custom/weather": {
+        "format": "{}",
+        "interval": 600,
+	"exec": "curl --silent https://wttr.in/?format=1 | sed 's/+//g; s/  */ /g'"
+    },
+    "custom/internet": {
+        "format": "{}",
+        "interval": 1,
+	"exec": "~/bin/sb-internet"
+    }
+}

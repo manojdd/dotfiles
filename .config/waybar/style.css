@@ -1,0 +1,212 @@
+/* Color Palette (Catppuccin Mocha-inspired) */
+@define-color base   #1e1e2e;
+@define-color mantle #181825;
+@define-color crust  #11111b;
+@define-color text   #cdd6f4;
+@define-color subtext0 #a6adc8;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color surface2 #585b70;
+@define-color blue   #89b4fa;
+@define-color lavender #b4befe;
+@define-color sapphire #74c7ec;
+@define-color sky    #89dceb;
+@define-color teal   #94e2d5;
+@define-color green  #a6e3a1;
+@define-color yellow #f9e2af;
+@define-color peach  #fab387;
+@define-color maroon #eba0ac;
+@define-color red    #f38ba8;
+@define-color mauve  #cba6f7;
+@define-color pink   #f5c2e7;
+@define-color flamingo #f2cdcd;
+@define-color rosewater #f5e0dc;
+
+* {
+    font-family: "Inter", "Roboto", "sans-serif";
+    font-size: 22px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    /* background-color: transparent; */
+    background: rgba(43, 48, 59, 0.5);
+    color: @text;
+    padding: 0px 0px;
+    margin: 0px 0px;
+    border-radius: 4px;
+}
+
+/* Module Container Styling (Pills) */
+#workspaces,
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#custom-gpu,
+#custom-internet,
+#custom-weather,
+#custom-power,
+#tray,
+#mpris,
+#bluetooth,
+#wireplumber,
+#mode,
+#window {
+    padding: 0 12px;
+    margin: 0px 0px;
+    border-radius: 6px;
+}
+
+/* Workspace Styling */
+#workspaces {
+    padding: 0 4px;
+}
+
+#workspaces button {
+    padding: 4px 8px;
+    color: @subtext0;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    color: @lavender;
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+    color: @red;
+}
+
+#workspaces button:hover {
+    background-color: @surface1;
+    border-radius: 16px;
+}
+
+/* Specific Module Colors/Styles */
+#clock {
+    color: @blue;
+    font-weight: bold;
+}
+
+#battery {
+    color: @green;
+}
+
+#battery.charging, #battery.plugged {
+    color: @teal;
+}
+
+#battery.critical:not(.charging) {
+    color: @red;
+    animation: blink 0.5s steps(12) infinite alternate;
+}
+
+@keyframes blink {
+    to {
+        background-color: @red;
+        color: @base;
+    }
+}
+
+#cpu {
+    color: @sky;
+}
+
+#memory {
+    color: @mauve;
+}
+
+#disk {
+    color: @peach;
+}
+
+#temperature {
+    color: @maroon;
+}
+
+#backlight {
+    color: @yellow;
+}
+
+#network {
+    color: @sapphire;
+    min-width: 52px;
+    padding: 0 12px;
+}
+
+#network.disconnected {
+    color: @red;
+}
+
+#pulseaudio {
+    color: @blue;
+}
+
+#pulseaudio.muted {
+    color: @surface2;
+}
+
+#wireplumber {
+    color: @lavender;
+}
+
+#custom-media {
+    color: @pink;
+    min-width: 120px;
+}
+
+#custom-power {
+    min-width: 52px;
+    padding: 0 12px;
+}
+
+#tray {
+    padding: 0 8px;
+}
+
+#mpd {
+    color: @teal;
+}
+
+#mpd.disconnected {
+    color: @red;
+}
+
+#mpd.stopped {
+    color: @surface2;
+}
+
+#mpd.paused {
+    color: @yellow;
+}
+
+#idle_inhibitor.activated {
+    color: @lavender;
+}
+
+/* Window Title Styling */
+#window {
+    background-color: transparent;
+    color: @subtext0;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+#tags button {
+    font-size: 22px; /* Make tag numbers/icons significantly larger */
+    padding: 0 10px; /* Add extra breathing room for the larger text */
+}
+
+#tags button.focused {
+    font-weight: bold;
+    border-bottom: 4px solid #ffffff; /* Thicker indicator for 4K visibility */
+}
+
