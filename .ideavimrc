@@ -22,7 +22,9 @@ set showmode
 :map <leader>a <Action>(AnalyzeMenu)
 :map <leader>e <Action>(GotoNextError)
 :map <leader>E <Action>(GotoPreviousError)
-:map <leader>c <Action>(com.intellij.httpClient.actions.ConvertCurlToHttpRequestAction)
+" :map <leader>c <Action>(com.intellij.httpClient.actions.ConvertCurlToHttpRequestAction)
+:map <leader>c <Action>(Generate)
+
 
 " File Operations & Navigation
 :map <leader>n <Action>(NewElement)
