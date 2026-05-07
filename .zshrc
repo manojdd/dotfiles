@@ -38,6 +38,11 @@ bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+# Foot terminal shell integration to allow jumping to prev/next prompt using Ctrl-Shift+z/x
+precmd() {
+    print -Pn "\e]133;A\e\\"
+}
+
 f() {
 FZF_DEFAULT_COMMAND="plocate ''" \
     fzf --bind "change:reload:plocate {q} || true" \
