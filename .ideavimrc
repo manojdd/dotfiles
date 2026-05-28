@@ -87,3 +87,7 @@ set showmode
 "com.jetbrains.plugins.remotesdk.console.RunSshConsoleAction : Connect via SSH and run console action?
 "CodeMenu : Shows general code refactoring options
 "CodeFormatGroup : Code Formatting actions
+
+" Map :e! to the IDE's Synchronize action
+command! ReloadFromDisk action SynchronizeCurrentFile
+cnoreabbrev e! ReloadFromDisk
