@@ -31,8 +31,8 @@
 }
 
 window#waybar {
-    /* background-color: transparent; */
-    background: rgba(43, 48, 59, 0.5);
+    background-color: rgba(17, 17, 27, 0.9);
+    /* background: linear-gradient(45deg, #1e1e2e 0%, #313244 100%); */
     color: @text;
     padding: 0px 0px;
     margin: 0px 0px;
@@ -207,6 +207,26 @@ window#waybar {
 
 #tags button.focused {
     font-weight: bold;
-    border-bottom: 4px solid #ffffff; /* Thicker indicator for 4K visibility */
+    /* Thicker indicator for 4K visibility */
+    /* border-bottom: 4px solid #ffffff; */
+    background-color: #8896D9;
 }
 
+/* The DWM square dot for occupied workspaces */
+#tags button.occupied {
+    /* Create a solid color "image" */
+    background-image: linear-gradient(#ffffff, #ffffff);
+    background-repeat: no-repeat;
+
+    /* This defines the exact square dimensions */
+    background-size: 6px 6px;
+
+    /* This places it in the top left (x y) */
+    background-position: 2px 2px;
+}
+
+/* Optional: Style for the active/focused workspace */
+#tags button.active {
+    background-color: #444444;
+    color: #ffffff;
+}
