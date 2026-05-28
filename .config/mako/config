@@ -44,10 +44,16 @@ border-color=#1ed760
 border-color=#5865f2
 
 [app-name=break-alert]
+history=0
 anchor=center
-width=500
-height=200
-background-color=#ff0000
+font=JetBrainsMono Nerd Font 36
+background-color=#1e1e2ec0
+width=3840
+height=2160
+padding=1080,0
+border-size=0
+text-alignment=center
+default-timeout=20000
 
 # Ensure KDE Connect notifications stand out
 # [app-name="kdeconnect"]
@@ -60,3 +66,13 @@ group-by=app-name
 [category="im.received"]
 border-color=#ff0000
 default-timeout=0 
+
+[app-name=info]
+history=0
+anchor=center
+font=JetBrainsMono Nerd Font 20
+background-color=#1e1e2ec0
+width=1280
+height=1280
+border-size=0
+default-timeout=20000
