@@ -566,3 +566,5 @@ nnoremap <c-u> <c-w>x
 " ------------------------------------------------------------------------------
 
 " https://github.com/cirala/vifm_devicons
+
+nnoremap W :!pkill swaybg; swaybg -i %c > /dev/null 2>&1 &<CR>
