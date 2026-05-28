@@ -22,6 +22,7 @@ compinit
 
 # Added by me
 source <(fzf --zsh)
+eval "$(direnv hook zsh)"
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # These 2 should be at the end
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
