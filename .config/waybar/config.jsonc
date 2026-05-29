@@ -109,16 +109,16 @@
     "custom/gpu": {
         "format": " {}",
         "interval": 5,
-	"exec": "nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits | awk -F ', ' '{printf \"%.1f/%.1f GB\\n\", $1/1024, $2/1024}'"
+	      "exec": "nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits | awk -F ', ' '{printf \"%.1f/%.1f GB\\n\", $1/1024, $2/1024}'"
     },
     "custom/weather": {
         "format": "{}",
         "interval": 600,
-	"exec": "curl --silent https://wttr.in/?format=1 | sed 's/+//g; s/  */ /g'"
+	      "exec": "curl --silent https://wttr.in/?format=1 | sed 's/+//g; s/  */ /g'"
     },
     "custom/internet": {
         "format": "{}",
         "interval": 1,
-	"exec": "~/bin/sb-internet"
+	      "exec": "internet"
     }
 }
