@@ -1,0 +1,11 @@
+#!/bin/bash
+ping_timeout=1 #integers only, ping's fault
+addresses=("8.8.8.8" "8.8.4.4" "1.1.1.1")
+ping_address=${addresses[$RANDOM % ${#addresses[@]} ]}
+
+if ! ping -I wlan0 -c 1 -W $ping_timeout $ping_address > /dev/null 2>&1; then
+	echo "🔴"
+else
+	echo "🟢"
+fi
+

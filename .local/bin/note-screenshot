@@ -1,0 +1,2 @@
+#!/bin/bash
+emacsclient -c -n -e "(insert-screenshot-to-org-roam-daily)"

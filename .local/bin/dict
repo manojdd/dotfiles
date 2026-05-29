@@ -1,0 +1,4 @@
+#!/bin/sh
+
+CLIPBOARD=$(wl-paste | awk '{print $1}')
+fuzzel --dmenu --prompt-only "" -f ":size=20" --placeholder "Enter your word" --search "${CLIPBOARD}" | xargs -I % curl --silent 'https://api.dictionaryapi.dev/api/v2/entries/en/%' | jq -r '.[0].meanings[0].definitions[0].definition' | xargs -0 -I % notify-send -a info --urgency low "Definition" '%'

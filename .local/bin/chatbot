@@ -1,0 +1,55 @@
+#ollama run llama3.2 "Explain or teach me about $(xclip -o)" | zenity --title "AI 🪄" --width=1000 --height=1000 --text-info --auto-scroll
+# REPLY="$(ollama run llama3.2 \"Explain or teach me about ${QUERY}\")"
+# printf "# Me: %s\n## AI: %s\n\n" "${QUERY}" "${REPLY}"| tee -a ~/chatbot.log | pv -L 100 | zenity --title "AI 🪄" --width=1000 --height=1000 --text-info --auto-scroll
+# printf "# Me: %s\n## AI: %s\n\n" "${QUERY}" "${REPLY}"| tee -a ~/chatbot.log | zenity --title "AI 🪄" --width=1000 --height=1000 --text-info --auto-scroll
+
+# Experiment
+# printf "# Me: %s\n## AI: %s\n" "${QUERY}" | tee -a ~/chatbot.log
+# printf "${REPLY}"| tee -a ~/chatbot.log | pv -L 100 | zenity --title "AI 🪄" --width=1000 --height=1000 --text-info --auto-scroll
+
+CONTENT="$(wl-paste)"
+# QUERY=$(zenity --forms --add-entry="Ask LLM" --text "$(wl-paste)")
+QUERY=$(zenity --forms \
+  --title="Ask LLM" \
+  --text="${CONTENT}" \
+  --add-multiline-entry="Query")
+
+# echo "${CONTENT}: ${QUERY}"
+# echo "${QUERY}:\\n${CONTENT}"
+
+INPUT=$(printf "%s\n%s" "${QUERY}" "${CONTENT}")
+echo Input is $INPUT
+
+# PAYLOAD=$(printf '{
+#   "model": "any-model",
+#   "messages": [
+#     { "role": "system", "content": "You are a helpful assistant." },
+#     { "role": "user", "content": "%s" }
+#   ]
+# }' "$INPUT")
+
+PAYLOAD=$(
+  jq --null-input \
+    --arg input_content "$INPUT" \
+    '{
+      "model": "any-model",
+      "messages": [
+        { "role": "system", "content": "You are a helpful assistant." },
+        { "role": "user", "content": $input_content }
+      ]
+    }'
+)
+# PAYLOAD=$(printf "<span font='20'>%s</span>" "${DATA}")
+echo Payload is ${PAYLOAD}
+OUTPUT=$(curl --silent http://localhost:8000/v1/chat/completions \
+-H "Content-Type: application/json" \
+-d "${PAYLOAD}" | jq -r '.choices[].message.content')
+# printf "<span font='22'># Me: %s\n## AI: %s\n\n</span>" "${INPUT}" "${OUTPUT}"| tee -a ~/chatbot.log | zenity --title "AI 🪄" --width=1000 --height=1000 --text-info --auto-scroll --
+
+# TEXT=$(printf '<span font="Aporetic Sans 22"># Me: %s\n## AI: %s\n\n</span>' "${INPUT}\n" "${OUTPUT}")
+TEXT=$(printf '# Me: %s\n## AI: %s\n\n' "${INPUT}\n" "${OUTPUT}")
+echo "TEXT is ${TEXT}"
+# echo "${TEXT}"| tee -a ~/chatbot.log | xargs -I % zenity --title "AI 🪄" --width=1000 --height=1000 --info --text="%"
+# echo "${TEXT}"| xargs -I % zenity --title "AI 🪄" --width=1000 --height=1000 --info --text="%"
+# zenity --title "AI 🪄" --width=1000 --height=1000 --info --text="$(printf %s "${TEXT}" | sed 's/<|[^>]*|>//g'))" --auto-scroll
+zenity --title "AI 🪄" --width=1000 --height=1000 --info --text="$(printf %s "${TEXT}")" --auto-scroll

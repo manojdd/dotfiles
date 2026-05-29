@@ -1,0 +1,66 @@
+#!/bin/sh
+
+# Kill already running duplicate process
+_ps="waybar mako swaybg"
+for _prs in $_ps; do
+    if [ "$(pidof "${_prs}")" ]; then
+         killall -9 "${_prs}"
+    fi
+ done
+
+# for portal in xdg-desktop-portal-gtk xdg-desktop-portal-wlr xdg-desktop-portal; do
+#    pkill -e "$portal"
+# done
+
+# pkill xdg-desktop-portal-gtk
+
+# export XDG_CURRENT_DESKTOP=dwl:wlroots
+export XDG_CURRENT_DESKTOP=dwl
+export XDG_SESSION_DESKTOP=dwl
+
+dbus-update-activation-environment --systemd \
+  WAYLAND_DISPLAY \
+  XDG_CURRENT_DESKTOP \
+  XDG_SESSION_DESKTOP
+
+# systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr
+
+# Starting the portals manually is not required since we have systemd user services for them
+# /usr/lib/xdg-desktop-portal-wlr &
+# /usr/lib/xdg-desktop-portal-gtk &
+# sleep 1
+# /usr/lib/xdg-desktop-portal &
+
+# Start our applications
+# swayidle -w \
+#     timeout 600 'pkill stretchly; swaylock -f -c 000000' \
+#     timeout 900 'wlr-randr --json | jq -r ".[].name" | xargs -I % -n 1 wlr-randr --output % --off' \
+#     resume 'stretchly &; wlr-randr --json | jq -r ".[].name" | xargs -I % -n 1 wlr-randr --output % --on' \
+#     before-sleep 'pkill stretchly; playerctl pause; swaylock -f -c 000000' &
+
+swayidle -w \
+    timeout 600 'pkill stretchly; swaylock -f -c 000000' \
+    timeout 900 'wlr-randr --json | jq -r ".[].name" | xargs -I % -n 1 wlr-randr --output % --off' \
+    resume 'wlr-randr --json | jq -r ".[].name" | head -n 1 | xargs -I % -n 1 wlr-randr --output % --on; sleep 1; stretchly >/dev/null 2>&1 &' \
+    before-sleep 'pkill stretchly; playerctl -a pause 2>/dev/null; swaylock -f -c 000000' &
+
+swaybg -i ~/Pictures/Wallpapers/4K/SpaceView.png &
+
+mako &
+waybar &
+# sleep 2
+# turn off and on to force focus OR just reconfigure
+wlr-randr --output DP-3 --on
+wlr-randr --output HDMI-A-1 --off
+foot --server &
+# Wait until the socket file appears (default path shown)
+until [ -S "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/foot-${WAYLAND_DISPLAY:-wayland-0}.sock" ]; do
+    sleep 0.05
+done
+footclient --app-id=foot-main tmux new -As desktop &
+firefox-developer-edition &
+kdeconnectd &
+stretchly &
+~/Applications/koreader-v2026.03-x86_64.AppImage &
+sleep 1
+XDG_RUNTIME_DIR=/run/user/$(id -u) WAYLAND_DISPLAY=wayland-0 emacsclient -nc &

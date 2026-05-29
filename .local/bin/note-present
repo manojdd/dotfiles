@@ -1,0 +1,23 @@
+#!/bin/bash
+SESSION="present"
+
+# 1. Idempotency: Kill existing session if it exists
+tmux kill-session -t "$SESSION" 2>/dev/null
+
+# 2. Create the new detached session and start emacsclient
+tmux new-session -d -s "$SESSION"
+tmux send-keys -t "$SESSION" "emacsclient -nw" C-m
+
+# 3. Start the loop in the background
+# The loop checks if the session exists; if you kill the session, the loop ends.
+(
+    while tmux has-session -t "$SESSION" 2>/dev/null; do
+        tmux send-keys -t "$SESSION" "Home"
+        sleep 60
+    done
+) &
+
+# 4. Open a new 'foot' terminal window and attach to the session
+# This will open the window and stay open as long as the tmux session is alive.
+# foot -e tmux attach-session -t "$SESSION"
+ghostty -e tmux attach-session -t "$SESSION"

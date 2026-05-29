@@ -1,0 +1,11 @@
+#!/bin/bash
+IS_BLUR_ON=$(dconf read /org/gnome/shell/extensions/blur-my-shell/applications/blur)
+if [ ${IS_BLUR_ON} == "false" ]; then
+    # Same setting using gsettings
+    # gsettings --schemadir ~/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/schemas/ set org.gnome.shell.extensions.blur-my-shell.applications blur true
+    dconf write /org/gnome/shell/extensions/blur-my-shell/applications/blur true
+else
+    # gsettings --schemadir ~/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/schemas/ set org.gnome.shell.extensions.blur-my-shell.applications blur true
+    dconf write /org/gnome/shell/extensions/blur-my-shell/applications/blur false
+fi
+

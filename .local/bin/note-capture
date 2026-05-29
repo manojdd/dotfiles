@@ -1,0 +1,37 @@
+#!/bin/bash
+# [[ -n "$NOTE" ]] && emacsclient -c -n -e "(my/org-roam-dailies-capture-with-direct-text \"$NOTE\")"
+if [[ $1 == "silent" ]]; then
+    NOTE="$(wl-paste)"
+else
+# Capture the note using zenity and xclip
+NOTE=$(zenity --entry --text="Enter the text you want to capture                                                   " --entry-text="$(wl-paste)")
+fi
+
+# Escape special characters for Emacs Lisp
+# printf '%s' "$NOTE": Safely formats the note.
+# sed -e 's/\\/\\\\/g' -e 's/\"/\\"/g' -e 's/\$/\\$/g' -e ':a;N;$!ba;s/\n/\\n/g': This sed command escapes backslashes, double quotes, dollar signs, and newlines in the captured note. These characters can interfere with Emacs Lisp string parsing if not properly escaped.
+ESCAPED_NOTE=$(printf '%s' "$NOTE" | sed -e 's/\\/\\\\/g' -e 's/\"/\\"/g' -e 's/\$/\\$/g' -e ':a;N;$!ba;s/\n/\\n/g')
+
+# echo "Note: $ESCAPED_NOTE"
+# Pass the escaped note to emacsclient
+# June 9, 2024: Added -t option to avoid creating a graphical frame
+if [[ $2 == "summarize" ]]; then
+    # TODO: Replace ollama with llama.cpp cli or plain curl 
+	ESCAPED_NOTE=$(ollama run llama3.1 "Output only the summary of the following text in org mode format without including a meta-header describing the output: ${ESCAPED_NOTE}")
+fi
+[[ -n "$NOTE" ]] && emacsclient -c -n -e "(my/org-roam-dailies-capture-with-direct-text \"$ESCAPED_NOTE\")"
+# while getopts ":sp" option; do
+# 	case $option in
+# 		s)
+# 			echo "silent"
+# 			NOTE="$(wl-paste)"
+# 			;;
+# 		p)
+# 			echo "processed"
+# 			;;
+# 		\?)
+# 			echo "invalid option: $OPTARG"
+# 			exit 1
+# 			;;
+# 	esac
+# done

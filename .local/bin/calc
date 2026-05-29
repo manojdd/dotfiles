@@ -1,0 +1,13 @@
+#!/bin/bash
+# rofi -show calc -modi calc -no-show-match -no-sort -automatic-save-to-history -calc-command "echo -n '{result}' | xclip -selection clipboard"
+
+# 1. Get math expression from Fuzzel
+EXPR=$(fuzzel --dmenu --prompt-only "Calculate: " --placeholder "Type your expression" -f ":size=20" --placeholder-color="#93a1a133")
+
+# 2. If user didn't hit escape, calculate result with qalc
+if [ -n "$EXPR" ]; then
+    RESULT=$(qalc -t "$EXPR")
+
+    # 3. Show the result in another Fuzzel window (for easy copying)
+    echo "$RESULT" | fuzzel --dmenu --lines 2 -f ":size=20" --placeholder="Result (Enter to copy)" | wl-copy
+fi
