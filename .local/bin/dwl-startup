@@ -62,5 +62,8 @@ firefox-developer-edition &
 kdeconnectd &
 stretchly &
 ~/Applications/koreader-v2026.03-x86_64.AppImage &
-sleep 1
-XDG_RUNTIME_DIR=/run/user/$(id -u) WAYLAND_DISPLAY=wayland-0 emacsclient -nc &
+# Wait till emacsclient can be started
+until emacsclient -e t >/dev/null 2>&1; do
+    sleep 0.1
+done
+emacsclient -nc &
