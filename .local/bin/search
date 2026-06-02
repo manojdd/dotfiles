@@ -1,0 +1,17 @@
+#!/bin/bash
+# Search home directory files at root + some directories recursively
+SELECTED=$(plocate --regex "((^($HOME)/([^/]+$|(org|Downloads|Documents|.config|llama|backups|Calibre Library)/))|(^/etc))" | fuzzel --match-mode fzf --width 100 --dmenu)
+
+if [[ -n "${SELECTED}" ]]; then
+	FILENAME=${SELECTED##*/}
+	EXT=${FILENAME##*.}
+	case $EXT in
+		h | c | cpp | el | py | java | go | js | ts | tsx | jsx | css | html | conf | ini | txt | log | json | jsonc | yaml | yml | md | org | gpg | pdf | sh | service)
+			emacsclient -nc -F "((title . \"quick-emacsclient\"))" "${SELECTED}"
+			;;
+
+		*)
+			xdg-open "${SELECTED}"
+			;;
+	esac
+fi
