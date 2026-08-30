@@ -51,11 +51,6 @@
 (package! ox-tailwind
   :recipe (:host github :repo "vascoferreira25/ox-tailwind"))
 (package! olivetti)
-(package! org-todoist
-  :recipe (:host github
-           :repo "lillenne/org-todoist"
-           :branch "main"
-           :files ("org-todoist.el")))
 (package! org-modern)
 (package! org-caldav)
 (package! anki-editor
