@@ -18,7 +18,9 @@ for _prs in $_ps; do
 export XDG_CURRENT_DESKTOP=dwl
 export XDG_SESSION_DESKTOP=dwl
 
+systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_RUNTIME_DIR
 dbus-update-activation-environment --systemd \
+  DISPLAY \
   WAYLAND_DISPLAY \
   XDG_CURRENT_DESKTOP \
   XDG_SESSION_DESKTOP
