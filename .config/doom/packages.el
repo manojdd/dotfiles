@@ -59,3 +59,4 @@
 (package! catppuccin-theme)
 
 (package! verb)
+(package! plz)
