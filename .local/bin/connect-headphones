@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Automatically connect paired headset/headphones
+bluetoothctl devices Paired | awk '{print $2}' | while read -r mac; do
+    bluetoothctl info "$mac" | grep -qE "Icon: audio-(headset|headphones)" && echo "$mac" && bluetoothctl connect "$mac" &
+done
