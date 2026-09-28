@@ -63,6 +63,21 @@ mem() {
 	# done | awk '{total += $1} END {printf("%.2f GiB\n", total/1024/1024)}'
 }
 
+# Search ~/org using rga-fzf
+rga_org_search() {
+    (
+        cd ~/org || return
+	rga-fzf >/dev/tty 2>/dev/null
+    )
+
+    zle redisplay
+}
+
+zle -N rga_org_search
+
+# Alt-g
+bindkey '^[g' rga_org_search
+
 PROMPT='%F{green}%n%f@%F{magenta}%m%f %F{blue}%B%~%b%f %# '
 
 # Aliases
